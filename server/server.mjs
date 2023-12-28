@@ -1,16 +1,12 @@
-import express from 'express'
-import records from './routes/record.mjs'
+import express from "express";
+import router from "./routes/record.mjs";
 
+const app = express();
+const PORT = 3000;
+app.use(express.json());
+app.use('/record', router);
 
-const app=express();
-const PORT=5050;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 
-console.log(records);
-// app.get('/',(req,res)=>{
-//     res.send('hello world')
-// })
-app.use("/api/v1/record",records)
-
-app.listen(PORT,()=>{
-    console.log('sever running on port',PORT);
-})

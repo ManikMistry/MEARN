@@ -4,12 +4,18 @@
   "description": "",
   "main": "server.mjs",
   "type": "module",
+  "bin": {
+    "config": "./db/.config"
+  },
   "scripts": {
+    "start": "nodemon server.mjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mongodb": "^6.3.0",
+    "nodemon": "^3.0.2"
   }
 }
