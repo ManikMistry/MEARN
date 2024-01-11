@@ -2,6 +2,7 @@ import './App.css'
 import Navbar from './components/Navbar';
 import { Route, Routes } from 'react-router-dom';
 import RecordList from './components/RecordList';
+import Create from './components/Create';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
     <div style={{margin:"20px"}}>
       <Routes>
         <Route exact path='/' element={<RecordList/>}> </Route>
+        <Route path='/create' element={<Create/>}> </Route>
       </Routes>
     </div>
     </>

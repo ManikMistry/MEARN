@@ -6,7 +6,8 @@ function Record(props) {
     <>
       <tr>
         <td>{props.record.name}</td>
-        <td>{props.record.address}</td>
+        <td>{props.record.position}</td>
+        <td>{props.record.level}</td>
         <td>
           <Link className="btn btn-link">Edit</Link>
           <button className="btn btn-link" onClick={()=>{
@@ -60,7 +61,8 @@ function RecordList() {
         <thead>
           <tr>
             <th>Name</th>
-            <th>From</th>
+            <th>Position</th>
+            <th>Level</th>
             <th>Action</th>
           </tr>  
         </thead>
