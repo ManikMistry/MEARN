@@ -8,7 +8,7 @@ const router=express.Router();
 router.get('/',async (req,res)=>{
     try{
         const collection=db.collection("records"); 
-        console.log(collection)
+        // console.log(collection)
         const results=await collection.find({}).toArray();
         res.status(200).send(results);
     }catch(error){
@@ -21,9 +21,9 @@ router.get('/',async (req,res)=>{
 router.get('/:id',async (req, res)=>{
     let collection=db.collection("records");
     let query={_id:new ObjectId(req.params.id)}
-    console.log(query)
+    // console.log(query)
     let result=await collection.findOne(query);
-    console.log(result)
+    // console.log(result)
 
     if(!result) res.send("Not Found").status(404);
     else res.send(result).status(200)
@@ -32,8 +32,14 @@ router.get('/:id',async (req, res)=>{
 //create a new record
 router.post('/',async (req,res)=>{
     let newDocumet={
-        name:req.body.name,
-        address: req.body.address
+        VendorName:req.body.VendorName,
+        BankAccountNo: req.body.BankAccountNo,
+        BankName: req.body.BankName,
+        AddressLine1:req.body.AddressLine1,
+        AddressLine2:req.body.AddressLine2,
+        City:req.body.City,
+        Country:req.body.Country,
+        ZipCode:req.body.ZipCode
     }
     let collection= await db.collection('records');
     let result=await collection.insertOne(newDocumet);
@@ -56,8 +62,14 @@ router.patch('/:id', async (req,res)=>{
 
     const updates={
         $set:{
-            name: req.body.name,
-            address: req.body.address
+            VendorName:req.body.VendorName,
+            BankAccountNo: req.body.BankAccountNo,
+            BankName: req.body.BankName,
+            AddressLine1:req.body.AddressLine1,
+            AddressLine2:req.body.AddressLine2,
+            City:req.body.City,
+            Country:req.body.Country,
+            ZipCode:req.body.ZipCode
         }
     }
     let collection=db.collection("records")
