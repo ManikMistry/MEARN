@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
-function Create() {
+function Edit() {
   const [form, setForm] = useState({
     VendorName: "",
     BankAccountNo: "",
@@ -13,6 +13,32 @@ function Create() {
     ZipCode: "",
   });
   const navigate = useNavigate();
+  const params=useParams();
+
+  async function fetchData(){
+    const id=params.id.toString();
+
+    const response=await fetch(`http://localhost:3001/record/${id} `)
+
+    if(!response.ok){
+        const message=`An error has occured : ${response.statusText}`;
+        window.alert(message);
+        return;
+    }
+    const record=await response.json();
+    if(!record){
+        window.alert(`Vendor with id ${id} not found`);
+        navigate('/');
+        return;
+
+    }
+    setForm(record);
+  }
+
+  useEffect(()=>{
+    fetchData();
+  },[])
+
   console.log(form);
   const updateForm = (value) => {
     return setForm((prev) => ({ ...prev, ...value }));
@@ -21,13 +47,23 @@ function Create() {
   async function onSubmit(e) {
     e.preventDefault();
 
-    const newRecord = { ...form };
-    await fetch("http://localhost:3001/record", {
-      method: "POST",
+    const editedRecord = { 
+        VendorName: form.VendorName,
+        BankAccountNo: form.BankAccountNo,
+        BankName:form.BankName,
+        AddressLine1:form.AddressLine1,
+        AddressLine2:form.AddressLine2,
+        City:form.City,
+        Country:form.Country,
+        ZipCode:form.ZipCode
+        
+    };
+    await fetch(`http://localhost:3001/record/${params.id}`, {
+      method: "PATCH",
       headers: {
         "content-Type": "application/json",
       },
-      body: JSON.stringify(newRecord),
+      body: JSON.stringify(editedRecord),
     }).catch((error) => {
       window.alert(error);
       return;
@@ -47,7 +83,7 @@ function Create() {
   }
   return (
     <div>
-      <h3>Create a New Vendor</h3>
+      <h3>Update Vendor</h3>
       <form onSubmit={onSubmit}>
         <div className="form-group col-md-6">
           <label htmlFor="vendor_name">Vendor Name</label>
@@ -162,4 +198,4 @@ function Create() {
   );
 }
 
-export default Create;
+export default Edit;

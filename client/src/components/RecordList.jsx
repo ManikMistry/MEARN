@@ -5,11 +5,11 @@ function Record(props) {
   return (
     <>
       <tr>
-        <td>{props.record.name}</td>
-        <td>{props.record.position}</td>
-        <td>{props.record.level}</td>
+        <td>{props.record.VendorName}</td>
+        <td>{props.record.BankAccountNo}</td>
+        <td>{props.record.BankName}</td>
         <td>
-          <Link className="btn btn-link">Edit</Link>
+          <Link className="btn btn-link" to={`/edit/${props.record._id}`}>Edit</Link>
           <button className="btn btn-link" onClick={()=>{
             props.deleteRecord(props.record._id)
           }}>Delete</button>
@@ -23,7 +23,7 @@ function RecordList() {
   const [records, setRecords] = useState([]);
   async function getRecords() {
     try {
-      const response = await fetch("http://localhost:3000/record");
+      const response = await fetch("http://localhost:3002/record");
       if (!response.ok) {
         const message = `An error occured: ${response.statusText}`;
         window.alert(message);
@@ -40,7 +40,7 @@ function RecordList() {
   }, []);
 
   async function deleteRecord(id){
-    await fetch(`http://localhost:3000/record/${id}`,{
+    await fetch(`http://localhost:3002/record/${id}`,{
       method:"DELETE"
     })
     const newRecords=records.filter((el)=>el._id!==id);
@@ -56,13 +56,13 @@ function RecordList() {
   
   return (
     <>
-      <div>RecordList</div>
+      <div>Vendor List</div>
       <table className="table table-striped" style={{ marginTop: "20px" }}>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Level</th>
+            <th>Vendor name</th>
+            <th>Bank A/C No.</th>
+            <th>Bank Name</th>
             <th>Action</th>
           </tr>  
         </thead>
