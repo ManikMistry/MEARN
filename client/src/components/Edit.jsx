@@ -18,7 +18,7 @@ function Edit() {
   async function fetchData(){
     const id=params.id.toString();
 
-    const response=await fetch(`http://localhost:3001/record/${id} `)
+    const response=await fetch(`http://localhost:3002/record/${id} `)
 
     if(!response.ok){
         const message=`An error has occured : ${response.statusText}`;
@@ -58,7 +58,7 @@ function Edit() {
         ZipCode:form.ZipCode
         
     };
-    await fetch(`http://localhost:3001/record/${params.id}`, {
+    await fetch(`http://localhost:3002/record/${params.id}`, {
       method: "PATCH",
       headers: {
         "content-Type": "application/json",

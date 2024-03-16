@@ -22,7 +22,7 @@ function Create() {
     e.preventDefault();
 
     const newRecord = { ...form };
-    await fetch("http://localhost:3001/record", {
+    await fetch("http://localhost:3002/record", {
       method: "POST",
       headers: {
         "content-Type": "application/json",
